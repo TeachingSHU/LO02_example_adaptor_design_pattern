@@ -3,65 +3,68 @@
 #include <algorithm>
 
 /**
- * The Target defines the domain-specific interface used by the client code.
+ * The RoundHoleEarpiece defines the domain-specific interface used by the client code.
  */
-class Target {
+class RoundHoleEarpiece { // 圆孔耳机
  public:
-  virtual ~Target() = default;
+  virtual ~RoundHoleEarpiece() = default;
 
   virtual std::string Request() const {
-    return "Target: The default target's behavior.";
+    return "RoundHoleEarpiece: I could be used to listen to music, via round hole interface.";
   }
 };
 
 /**
- * The Adaptee contains some useful behavior, but its interface is incompatible
- * with the existing client code. The Adaptee needs some adaptation before the
+ * The HuaweiLastestSmartphone contains some useful behavior, but its interface is incompatible
+ * with the existing client code. The HuaweiLastestSmartphone needs some adaptation before the
  * client code can use it.
  */
-class Adaptee {
+class HuaweiLastestSmartphone {
  public:
   std::string SpecificRequest() const {
-    return ".eetpadA eht fo roivaheb laicepS";
+    return "HuaweiPhone: Use a USB 3.0 cable to listen to music via me.";
   }
 };
 
 /**
- * The Adapter makes the Adaptee's interface compatible with the Target's
+ * The Adapter makes the HuaweiLastestSmartphone's interface compatible with the RoundHoleEarpiece's
  * interface.
  */
-class Adapter : public Target {
+class Adapter : public RoundHoleEarpiece {
  private:
-  Adaptee *adaptee_;
+  HuaweiLastestSmartphone *adaptee_;
 
  public:
-  Adapter(Adaptee *adaptee) : adaptee_(adaptee) {}
+  Adapter(HuaweiLastestSmartphone *adaptee) : adaptee_(adaptee)
+  {
+    std::cout << "Adapter: I have a USB 3.0 interface connected to the phone, and "
+                 "a round hole interface." << std::endl;
+
+  }
   std::string Request() const override {
-    std::string to_reverse = this->adaptee_->SpecificRequest();
-    std::reverse(to_reverse.begin(), to_reverse.end());
-    return "Adapter: (TRANSLATED) " + to_reverse;
+        return this->adaptee_->SpecificRequest();
   }
 };
 
 /**
- * The client code supports all classes that follow the Target interface.
+ * The client code supports all classes that follow the RoundHoleEarpiece interface.
  */
-void ClientCode(const Target *target) {
+void PersonCode(const RoundHoleEarpiece *target) {
   std::cout << target->Request();
 }
 
 int main() {
-  std::cout << "Client: I can work just fine with the Target objects:\n";
-  Target *target = new Target;
-  ClientCode(target);
+  std::cout << "Person: I have only a RoundHoleEarpiece.\n";
+  RoundHoleEarpiece *target = new RoundHoleEarpiece;
+  PersonCode(target);
   std::cout << "\n\n";
-  Adaptee *adaptee = new Adaptee;
-  std::cout << "Client: The Adaptee class has a weird interface. See, I don't understand it:\n";
-  std::cout << "Adaptee: " << adaptee->SpecificRequest();
+  HuaweiLastestSmartphone *adaptee = new HuaweiLastestSmartphone;
+  std::cout << "Person: The HuaweiLastestSmartphone class has a weird interface. See, I don't understand it:\n";
+  std::cout << "HuaweiLastestSmartphone: " << adaptee->SpecificRequest();
   std::cout << "\n\n";
-  std::cout << "Client: But I can work with it via the Adapter:\n";
+  std::cout << "Person: But I can work with it via the Adapter:\n";
   Adapter *adapter = new Adapter(adaptee);
-  ClientCode(adapter);
+  PersonCode(adapter);
   std::cout << "\n";
 
   delete target;
