@@ -30,19 +30,18 @@ class HuaweiLastestSmartphone {
  * The Adapter makes the HuaweiLastestSmartphone's interface compatible with the RoundHoleEarpiece's
  * interface.
  */
-class Adapter : public RoundHoleEarpiece {
- private:
-  HuaweiLastestSmartphone *adaptee_;
+class Adapter : public RoundHoleEarpiece, private HuaweiLastestSmartphone {
+
 
  public:
-  Adapter(HuaweiLastestSmartphone *adaptee) : adaptee_(adaptee)
+  Adapter()
   {
     std::cout << "Adapter: I have a USB 3.0 interface connected to the phone, and "
                  "a round hole interface." << std::endl;
 
   }
   std::string Request() const override {
-        return this->adaptee_->SpecificRequest();
+        return this->SpecificRequest();
   }
 };
 
@@ -63,7 +62,7 @@ int main() {
   std::cout << "HuaweiLastestSmartphone: " << adaptee->SpecificRequest();
   std::cout << "\n\n";
   std::cout << "Person: But I can work with it via the Adapter:\n";
-  Adapter *adapter = new Adapter(adaptee);
+  Adapter *adapter = new Adapter;
   PersonCode(adapter);
   std::cout << "\n";
 
