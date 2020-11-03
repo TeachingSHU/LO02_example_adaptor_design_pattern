@@ -15,11 +15,11 @@ class RoundHoleEarpiece { // 圆孔耳机
 };
 
 /**
- * The HuaweiLastestSmartphone contains some useful behavior, but its interface is incompatible
- * with the existing client code. The HuaweiLastestSmartphone needs some adaptation before the
+ * The HuaweiLatestSmartphone contains some useful behavior, but its interface is incompatible
+ * with the existing client code. The HuaweiLatestSmartphone needs some adaptation before the
  * client code can use it.
  */
-class HuaweiLastestSmartphone {
+class HuaweiLatestSmartphone {
  public:
   std::string SpecificRequest() const {
     return "HuaweiPhone: Use a USB 3.0 cable to listen to music via me.";
@@ -27,10 +27,10 @@ class HuaweiLastestSmartphone {
 };
 
 /**
- * The Adapter makes the HuaweiLastestSmartphone's interface compatible with the RoundHoleEarpiece's
+ * The Adapter makes the HuaweiLatestSmartphone's interface compatible with the RoundHoleEarpiece's
  * interface.
  */
-class Adapter : public RoundHoleEarpiece, private HuaweiLastestSmartphone {
+class Adapter : public RoundHoleEarpiece, private HuaweiLatestSmartphone {
 
 
  public:
@@ -57,9 +57,9 @@ int main() {
   RoundHoleEarpiece *target = new RoundHoleEarpiece;
   PersonCode(target);
   std::cout << "\n\n";
-  HuaweiLastestSmartphone *adaptee = new HuaweiLastestSmartphone;
-  std::cout << "Person: The HuaweiLastestSmartphone class has a weird interface. See, I don't understand it:\n";
-  std::cout << "HuaweiLastestSmartphone: " << adaptee->SpecificRequest();
+  HuaweiLatestSmartphone *adaptee = new HuaweiLatestSmartphone;
+  std::cout << "Person: The HuaweiLatestSmartphone class has a weird interface. See, I don't understand it:\n";
+  std::cout << "HuaweiLatestSmartphone: " << adaptee->SpecificRequest();
   std::cout << "\n\n";
   std::cout << "Person: But I can work with it via the Adapter:\n";
   Adapter *adapter = new Adapter;
