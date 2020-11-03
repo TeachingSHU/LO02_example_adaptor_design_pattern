@@ -48,22 +48,22 @@ class Adapter : public RoundHoleEarpiece, private HuaweiLatestSmartphone {
 /**
  * The client code supports all classes that follow the RoundHoleEarpiece interface.
  */
-void PersonCode(const RoundHoleEarpiece *target) {
+void UserCode(const RoundHoleEarpiece *target) {
   std::cout << target->Request();
 }
 
 int main() {
-  std::cout << "Person: I have only a RoundHoleEarpiece.\n";
+  std::cout << "User: I have only a RoundHoleEarpiece.\n";
   RoundHoleEarpiece *target = new RoundHoleEarpiece;
-  PersonCode(target);
+  UserCode(target);
   std::cout << "\n\n";
   HuaweiLatestSmartphone *adaptee = new HuaweiLatestSmartphone;
-  std::cout << "Person: The HuaweiLatestSmartphone class has a weird interface. See, I don't understand it:\n";
+  std::cout << "User: The HuaweiLatestSmartphone class has a weird interface. See, I don't understand it:\n";
   std::cout << "HuaweiLatestSmartphone: " << adaptee->SpecificRequest();
   std::cout << "\n\n";
-  std::cout << "Person: But I can work with it via the Adapter:\n";
+  std::cout << "User: But I can work with it via the Adapter:\n";
   Adapter *adapter = new Adapter;
-  PersonCode(adapter);
+  UserCode(adapter);
   std::cout << "\n";
 
   delete target;
